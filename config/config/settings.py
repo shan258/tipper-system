@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["tipper-system.onrender.com"]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.onrender.com",
@@ -51,8 +51,18 @@ INSTALLED_APPS = [
     # Third-party
     'rest_framework',
     'rest_framework.authtoken',
+
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dbjenkcbv',
+    'API_KEY': '771358746325288',
+    'API_SECRET': 'lUlCUgykfwy0aGtYGNPsuULzCU4',
+}
 
 # REST FRAMEWORK (JWT)
 REST_FRAMEWORK = {
