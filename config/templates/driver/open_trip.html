@@ -1,0 +1,25 @@
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<select name="vehicle" required>
+  {% for v in vehicles %}
+    <option value="{{ v.id }}">{{ v.number }}</option>
+  {% endfor %}
+</select>
+
+<input type="text" name="from_location" placeholder="From Location" required>
+
+<input type="file" name="start_meter_photo" accept="image/*" required>
+
+<input type="hidden" id="lat" name="lat">
+<input type="hidden" id="lng" name="lng">
+
+<button type="submit">Start Trip</button>
+</form>
+
+<script>
+navigator.geolocation.getCurrentPosition(function(pos){
+  document.getElementById("lat").value = pos.coords.latitude;
+  document.getElementById("lng").value = pos.coords.longitude;
+});
+</script>

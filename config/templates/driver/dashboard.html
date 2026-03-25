@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { font-family: Arial; text-align:center; }
+.btn {
+  display:block; padding:18px;
+  margin:12px; font-size:20px;
+  background:#198754; color:white;
+  border-radius:10px; text-decoration:none;
+}
+</style>
+</head>
+<body>
+
+<h2>👋 Hello, {{ request.user.username }}</h2>
+
+<a class="btn" href="{% url 'driver-open-trip' %}">▶ Open Trip</a>
+<a class="btn" href="{% url 'driver-close-trip' %}">⏹ Close Trip</a>
+<a class="btn" href="{% url 'driver-fuel-entry' %}">⛽ Fuel Entry</a>
+<a class="btn" href="{% url 'driver-parking' %}">🅿 End Day</a>
+<a class="btn" href="{% url 'driver-salary-view' %}">💰 My Salary</a>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<h2>Edit Trip</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <label>From</label><br>
+  <input type="text" name="start_location" value="{{ trip.start_location }}"><br><br>
+
+  <label>To</label><br>
+  <input type="text" name="end_location" value="{{ trip.end_location }}"><br><br>
+
+  <label>Start Meter</label><br>
+  <input type="number" name="start_meter_reading" value="{{ trip.start_meter_reading }}"><br><br>
+
+  <label>End Meter</label><br>
+  <input type="number" name="end_meter_reading" value="{{ trip.end_meter_reading }}"><br><br>
+
+  <button type="submit">Update Trip</button>
+</form>

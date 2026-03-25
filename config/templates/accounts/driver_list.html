@@ -1,0 +1,116 @@
+<a href="{% url 'admin_dashboard' %}" class="back">⬅ Back</a>
+<h2>🚚 Driver List</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <p style="color: green;">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<style>
+    body {
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        background: #f4f6f9;
+        padding: 20px;
+    }
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    th {
+        background: #1f2d3d;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    .back {
+        margin-bottom: 15px;
+        display: inline-block;
+        text-decoration: none;
+        color: #1f2d3d;
+        font-weight: 600;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Phone</th>
+            <th>License No</th>
+            <th>Vehicle</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for driver in drivers %}
+        <tr>
+            <td>
+                <a href="{% url 'trips:admin_driver_trip_summary' driver.id %}">
+                    {{ driver.user.username }}
+                </a>
+            </td>
+
+            <td>{{ driver.phone|default:"-" }}</td>
+
+            <td>{{ driver.license_no|default:"-" }}</td>
+
+            <td>
+                {% if driver.vehicle %}
+                    {{ driver.vehicle.vehicle_number }}
+                {% else %}
+                    <span style="color:red;">Not Assigned</span>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if driver.is_active %}
+                    ✅ Active
+                {% else %}
+                    ❌ Inactive
+                {% endif %}
+            </td>
+
+            <!-- ✅ CREATED DATE -->
+            <td>
+                {{ driver.created_at|date:"d M Y, h:i A" }}
+            </td>
+
+            <!-- ✅ ACTIONS -->
+            <td>
+                <a href="{% url 'edit_driver' driver.id %}">Edit</a> |
+                {% if driver.is_active %}
+                    <a href="{% url 'deactivate_driver' driver.id %}">Deactivate</a>
+                {% else %}
+                    <a href="{% url 'activate_driver' driver.id %}">Activate</a>
+                {% endif %}
+                |
+                <a href="{% url 'delete_driver' driver.id %}"
+                   onclick="return confirm('⚠️ PERMANENT DELETE? This cannot be undone!')">
+                   Delete
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

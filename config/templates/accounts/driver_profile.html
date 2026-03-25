@@ -1,0 +1,65 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+<div style="
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    min-height:80vh;
+">
+
+    <div style="width:420px;">
+
+        <a href="/driver-dashboard/">⬅ Back</a><h2 style="text-align:center;">🚚 Driver Profile</h2>
+
+        <div style="
+            background:white;
+            padding:22px;
+            border-radius:10px;
+            box-shadow:0 8px 22px rgba(0,0,0,.08);
+        ">
+
+            <p>
+                <strong>Username</strong><br>
+                <input type="text" value="{{ profile.user.username }}" disabled>
+            </p>
+
+            <p>
+                <strong>Phone Number</strong><br>
+                <input type="text" value="{{ profile.phone|default:'-' }}" disabled>
+            </p>
+
+            <p>
+                <strong>License Number</strong><br>
+                <input type="text" value="{{ profile.license_no|default:'-' }}" disabled>
+            </p>
+
+            <p>
+                <strong>Vehicle</strong><br>
+                <input type="text"
+                    value="{% if profile.vehicle %}{{ profile.vehicle.vehicle_number }}{% else %}Not Assigned{% endif %}"
+                    disabled
+                >
+            </p>
+
+            <p>
+                <strong>Status</strong><br>
+                <input type="text"
+                    value="{% if profile.is_active %}Active{% else %}Inactive{% endif %}"
+                    disabled
+                >
+            </p>
+
+        </div>
+
+        <!-- LOGOUT -->
+        <form method="post" action="{% url 'logout' %}" style="margin-top:14px;">
+            {% csrf_token %}
+            <button type="submit" style="width:100%; background:#e25c5c;">
+                🚪 Logout
+            </button>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<h2>Edit Fuel Entry</h2>
+{% if messages %}
+  {% for message in messages %}
+    <p style="color: green;">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <label>Diesel Liters</label>
+  <input type="number" step="0.01" name="diesel_liters" value="{{ fuel.diesel_liters }}">
+
+  <label>Amount</label>
+  <input type="number" name="amount" value="{{ fuel.amount }}">
+
+  <label>Meter Reading</label>
+  <input type="number" name="meter_reading" value="{{ fuel.meter_reading }}">
+
+  <label>Bill Image (optional)</label>
+  <input type="file" name="bill_image">
+
+  <br><br>
+  <button type="submit">Update</button>
+  <a href="{% url 'admin-fuel-dashboard' %}">Cancel</a>
+</form>

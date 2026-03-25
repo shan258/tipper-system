@@ -1,0 +1,103 @@
+<a href="{% url 'admin_dashboard' %}">⬅ Back </a><h2>Fuel Report</h2>
+<head>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            background: #1f2d3d;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .back {
+            margin-bottom: 15px;
+            display: inline-block;
+            text-decoration: none;
+            color: #1f2d3d;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<a href="?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}">
+    Download Excel
+</a>
+
+<form method="get" class="date-filter">
+    <label>From</label>
+    <input type="date" name="start_date" value="{{ start_date|date:'Y-m-d' }}">
+
+    <label>To</label>
+    <input type="date" name="end_date" value="{{ end_date|date:'Y-m-d' }}">
+
+    <button type="submit">Filter</button>
+    <a href="?">Reset</a>
+</form>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Date</th>
+        <th>Vehicle</th>
+        <th>Driver</th>
+        <th>Diesel (L)</th>
+        <th>Amount (₹)</th>
+        <th>Meter Reading</th>
+        <th>Bill</th>
+        <th>Action</th>
+    </tr>
+
+    {% for f in fuels %}
+    <tr>
+        <td>{{ f.date }}</td>
+        <td>{{ f.vehicle.vehicle_number }}</td>
+        <td>{{ f.driver.username }}</td>
+        <td>{{ f.diesel_liters }}</td>
+        <td>{{ f.amount }}</td>
+        <td>{{ f.meter_reading }}</td>
+        <td>
+        {% if f.bill_image %}
+            <a href="{{ f.bill_image.url }}" target="_blank">View</a>
+        {% else %}
+            <span style="color:#999;">No Image</span>
+        {% endif %}
+        </td>
+        <td>
+  <a href="{% url 'edit_fuel' f.id %}">✏️ Edit</a> |
+  <a href="{% url 'delete_fuel' f.id %}"
+     onclick="return confirm('Delete this fuel entry?');">
+     🗑 Delete
+  </a>
+</td>
+
+
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="7">No fuel entries</td>
+    </tr>
+    {% endfor %}
+</table>

@@ -1,0 +1,21 @@
+<h2>Edit Driver</h2>
+
+<form method="POST">
+  {% csrf_token %}
+
+  Phone:
+  <input type="text" name="phone" value="{{ driver.phone }}"><br>
+
+  License:
+  <input type="text" name="license_no" value="{{ driver.license_no }}"><br>
+
+  Vehicle Number:
+  <input type="text" name="vehicle_number"
+         value="{{ driver.vehicle.vehicle_number|default:'' }}"><br>
+
+  Active:
+  <input type="checkbox" name="is_active"
+         {% if driver.is_active %}checked{% endif %}><br>
+
+  <button type="submit">Update</button>
+</form>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Close Trip</title>
+</head>
+<body>
+
+<h2>⏹ Close Trip</h2>
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<input type="text" name="to_location" placeholder="Unload Location" required>
+
+<input type="file" name="end_meter_photo" accept="image/*" required>
+
+<button type="submit">Close Trip</button>
+
+</form>
+
+</body>
+</html>

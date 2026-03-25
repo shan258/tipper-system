@@ -1,0 +1,66 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+<a href="/admin-dashboard/">⬅ Back</a>
+<h2>👤 Admin Profile</h2>
+
+<form method="post" style="max-width:420px;">
+    {% csrf_token %}
+
+    <!-- USERNAME -->
+    <p>
+        <label><strong>Username</strong></label><br>
+        <input
+            type="text"
+            name="username"
+            value="{{ user.username }}"
+            required
+        >
+    </p>
+
+    <!-- EMAIL -->
+    <p>
+        <label><strong>Email</strong></label><br>
+        <input
+            type="email"
+            name="email"
+            value="{{ user.email }}"
+            placeholder="admin@example.com"
+            required
+        >
+    </p>
+
+    <hr style="margin:18px 0;">
+
+    <!-- PASSWORD -->
+    <p>
+        <label><strong>New Password</strong></label><br>
+        <input
+            type="password"
+            name="password"
+            placeholder="Leave blank to keep same"
+        >
+    </p>
+
+    <p>
+        <label><strong>Confirm Password</strong></label><br>
+        <input
+            type="password"
+            name="confirm_password"
+            placeholder="Confirm password"
+        >
+    </p>
+
+    <!-- ACTION BUTTONS -->
+    <button type="submit" style="width:100%; margin-top:10px;">
+        💾 Update Profile
+    </button>
+</form>
+
+<!-- LOGOUT SHOULD BE SEPARATE -->
+<form method="post" action="{% url 'logout' %}" style="max-width:420px; margin-top:10px;">
+    {% csrf_token %}
+    <button type="submit" style="width:100%; background:#dc2626;">
+        🚪 Logout
+    </button>
+</form>

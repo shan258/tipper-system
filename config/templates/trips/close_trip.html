@@ -1,0 +1,54 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+<div class="page-center">
+    <div class="form-card">
+        <a href="/driver-dashboard/">⬅ Back </a><h2>📍 Close Trip</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p><strong>Vehicle:</strong> {{ trip.vehicle }}</p>
+            <p><strong>From:</strong> {{ trip.start_location }}</p>
+
+            <div class="form-group">
+                <label>End Location</label>
+                <input type="text" name="end_location" required>
+            </div>
+
+            <div class="form-group">
+                <label>Ticket Number</label>
+                <input type="text" name="ticket_no">
+            </div>
+
+            <div class="form-group">
+                <label>Material</label>
+                <input type="text" name="material">
+            </div>
+
+            <div class="form-group">
+                <label>Net Weight</label>
+                <input type="number" name="net_weight">
+            </div>
+
+            <div class="form-group">
+                <label>Drop Count</label>
+                <input type="number" name="drop_count">
+            </div>
+
+            <div class="form-group">
+                <label>End Meter Reading</label>
+                <input type="number" name="end_meter_reading" required>
+            </div>
+
+            <div class="form-group">
+                <label>End Meter Photo</label>
+                <input type="file" name="end_meter_image" required>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                Close Trip
+            </button>
+        </form>
+    </div>
+</div>

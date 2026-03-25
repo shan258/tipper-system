@@ -1,0 +1,43 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+<div class="page-center">
+    <div class="form-card">
+        <h2>⛽ Fuel Entry</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Vehicle Number</label>
+                <input type="text" value="{{ vehicle.vehicle_number }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Diesel Liters</label>
+                <input type="number" step="0.01" name="diesel_liters" required>
+            </div>
+
+            <div class="form-group">
+                <label>Fuel Amount</label>
+                <input type="number" step="0.01" name="amount" required>
+            </div>
+
+            <div class="form-group">
+                <label>Meter Reading</label>
+                <input type="number" name="meter_reading">
+            </div>
+
+            <div>
+                <label>Diesel Bill</label>
+                <input type="file" name="bill_image" required>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                Save Fuel Entry
+            </button><br><br>
+             <a href="/driver-dashboard/">⬅ Back to Dashboard</a>
+        </form>
+    </div>
+</div>

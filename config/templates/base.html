@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- REQUIRED for mobile view -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}TMS{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Your existing CSS -->
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<!-- ================= MOBILE NAVBAR ================= -->
+<nav class="navbar navbar-dark bg-dark d-lg-none">
+    <div class="container-fluid">
+        <button class="btn btn-outline-light" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+            ☰
+        </button>
+        <span class="navbar-brand mb-0 h5">TMS</span>
+
+        <!-- 🔔 Mobile Notification -->
+        <div class="dropdown">
+            <a href="#" class="text-white position-relative"
+               data-bs-toggle="dropdown">
+                🔔
+                {% if notification_count %}
+                <span class="position-absolute top-0 start-100 translate-middle
+                             badge rounded-pill bg-danger">
+                    {{ notification_count }}
+                </span>
+                {% endif %}
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end p-2" style="width:280px;">
+                {% for n in notifications %}
+                    <li>
+                        <a class="dropdown-item small"
+                           href="{% url 'mark_notification_read' n.id %}">
+                            {{ n.message }}
+                        </a>
+                    </li>
+                {% empty %}
+                    <li class="dropdown-item text-muted">
+                        No new notifications
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ================= MOBILE SIDEBAR ================= -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">TMS</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <nav class="nav flex-column">
+            <a class="nav-link" href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+            <a class="nav-link" href="{% url 'driver_list' %}">🚚 Drivers</a>
+            <a class="nav-link" href="{% url 'vehicle_list' %}">🚛 Vehicles</a>
+            <a class="nav-link" href="{% url 'driver_salary_summary' %}">💰 Salary</a>
+            <a class="nav-link" href="{% url 'fuel_report' %}">⛽ Fuel</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ================= DESKTOP LAYOUT ================= -->
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- DESKTOP SIDEBAR -->
+        <aside class="col-lg-2 d-none d-lg-block sidebar">
+            <div class="logo text-center my-3">
+                <img src="{% static 'images/logo.png' %}" alt="Company Logo" class="img-fluid mb-2">
+                <h5>TMS</h5>
+            </div>
+
+            <nav class="nav flex-column">
+                <a href="{% url 'admin_dashboard' %}" class="nav-link">📊 Dashboard</a>
+                <a href="{% url 'driver_list' %}" class="nav-link">🚚 Drivers</a>
+                <a href="{% url 'vehicle_list' %}" class="nav-link">🚛 Vehicles</a>
+                <a href="{% url 'driver_salary_summary' %}" class="nav-link">💰 Salary</a>
+                <a href="{% url 'fuel_report' %}" class="nav-link">⛽ Fuel</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="col-12 col-lg-10 main p-0">
+
+            <!-- TOPBAR (DESKTOP ONLY) -->
+            <header class="topbar d-none d-lg-flex justify-content-between align-items-center px-3 py-2">
+
+                <input type="text" class="form-control w-25" placeholder="Search...">
+
+                <div class="d-flex align-items-center">
+
+                    <!-- 🔔 Notification Bell -->
+                    <div class="dropdown me-3">
+                        <a href="#" class="position-relative text-dark"
+                           data-bs-toggle="dropdown">
+                            🔔
+                            {% if notification_count %}
+                            <span class="position-absolute top-0 start-100 translate-middle
+                                         badge rounded-pill bg-danger">
+                                {{ notification_count }}
+                            </span>
+                            {% endif %}
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end p-2"
+                            style="width:300px;">
+
+                            {% for n in notifications %}
+                                <li>
+                                    <a class="dropdown-item small"
+                                       href="{% url 'mark_notification_read' n.id %}">
+                                        {{ n.message }}
+                                    </a>
+                                </li>
+                            {% empty %}
+                                <li class="dropdown-item text-muted">
+                                    No new notifications
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Profile -->
+                    <div class="profile me-3">
+                        <span>{{ request.user.username }}</span>
+                        <a href="{% url 'admin_profile' %}" class="ms-2">⚙</a>
+                    </div>
+
+                    <!-- Logout -->
+                    <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-secondary">
+                        Logout
+                    </a>
+                </div>
+
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <section class="content p-3">
+                {% block content %}{% endblock %}
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

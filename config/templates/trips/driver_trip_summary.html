@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Trip Summary</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            background: #1f2d3d;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .back {
+            margin-bottom: 15px;
+            display: inline-block;
+            text-decoration: none;
+            color: #1f2d3d;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<a class="back" href="{% url 'driver_dashboard' %}">⬅ Back </a><h2>🚚 My Trip Summary</h2>
+<a href="?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}">
+    Download Excel
+</a>
+
+<form method="get" style="margin-bottom: 15px;">
+    <label>From:</label>
+    <input type="date" name="start_date" value="{{ start_date|date:'Y-m-d' }}">
+
+    <label>To:</label>
+    <input type="date" name="end_date" value="{{ end_date|date:'Y-m-d' }}">
+
+    <button type="submit">Filter</button>
+    <a href="?">Reset</a>
+</form>
+
+{% if trips %}
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Start Location</th>
+        <th>End Location</th>
+        <th>Vehicle</th>
+        <th>Status</th>
+    </tr>
+
+    {% for trip in trips %}
+    <tr>
+        <td>{{ trip.start_time|date:"d M Y" }}</td>
+        <td>{{ trip.start_time|time:"H:i" }}</td>
+        <td>
+            {% if trip.end_time %}
+                {{ trip.end_time|time:"H:i" }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>{{ trip.start_location }}</td>
+        <td>{{ trip.end_location|default:"-" }}</td>
+        <td>{{ trip.vehicle }}</td>
+        <td>{{ trip.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No trips found.</p>
+{% endif %}
+
+</body>
+</html>

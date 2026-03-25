@@ -1,0 +1,212 @@
+/* =========================
+   GLOBAL
+========================= */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+.topbar {
+    height: 55px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.topbar input {
+    max-width: 250px;
+}
+
+.topbar .logout {
+    background: #ffc107;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR (DESKTOP ONLY)
+========================= */
+.sidebar {
+    width: 230px;
+    background: #0e116fbd;
+    color: #ffffff;
+    padding-top: 15px;
+}
+
+.sidebar .profile {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #2f4658;
+}
+
+.sidebar .profile img {
+    width: 60px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    color: #e0e0e0;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #1abc9c;
+    color: #fff;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* =========================
+   DASHBOARD CARDS
+========================= */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    padding: 18px;
+    border-radius: 6px;
+    color: #fff;
+    position: relative;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.card p {
+    margin: 5px 0 10px;
+    font-size: 13px;
+}
+
+.card .more {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Card Colors */
+.card.gray { background: #6c757d; }
+.card.green { background: #28a745; }
+.card.red { background: #dc3545; }
+.card.blue { background: #17a2b8; }
+.card.dark { background: #343a40; }
+.card.teal { background: #1abc9c; }
+
+/* =========================
+   TABLE
+========================= */
+.table-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto; /* ✅ mobile fix */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 600px; /* enables horizontal scroll on mobile */
+}
+
+table thead {
+    background: #f1f1f1;
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+table th {
+    font-weight: 600;
+}
+
+.btn-view {
+    background: #1abc9c;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+}
+
+/* =========================
+   MOBILE RESPONSIVE FIXES
+========================= */
+@media (max-width: 768px) {
+
+    .content {
+        padding: 12px;
+    }
+
+    .topbar input {
+        width: 100%;
+        max-width: 160px;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .card p {
+        font-size: 12px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fuel Entry</title>
+</head>
+<body>
+
+<h2>⛽ Fuel Entry</h2>
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<input type="number" name="liters" placeholder="Diesel Liters" required>
+
+<input type="number" name="amount" placeholder="Amount (₹)" required>
+
+<input type="file" name="bill_photo" accept="image/*">
+
+<button type="submit">Save Fuel</button>
+
+</form>
+
+</body>
+</html>

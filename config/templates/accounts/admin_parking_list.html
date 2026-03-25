@@ -1,0 +1,87 @@
+
+<a href="/admin-dashboard/">⬅ Back </a><h2>🅿️ Parking Report</h2>
+{% if messages %}
+  {% for message in messages %}
+    <p style="color: green;">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+<head>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            background: #1f2d3d;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .back {
+            margin-bottom: 15px;
+            display: inline-block;
+            text-decoration: none;
+            color: #1f2d3d;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Driver</th>
+            <th>Vehicle</th>
+            <th>Date</th>
+            <th>Park Time</th>
+            <th>End Meter Photo</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in parking_entries %}
+        <tr>
+            <td>{{ p.driver.username }}</td>
+            <td>{{ p.vehicle.vehicle_number }}</td>
+            <td>{{ p.date }}</td>
+            <td>{{ p.created_at|time:"h:i A" }}</td>
+            <td>
+                <a href="{{ p.end_meter_photo.url }}" target="_blank">View</a>
+            </td>
+            <td>
+  <a href="{% url 'delete_parking' p.id %}"
+     onclick="return confirm('Delete parking entry?');">
+     🗑 Delete
+  </a>
+</td>
+
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No parking records found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+

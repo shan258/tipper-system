@@ -1,0 +1,43 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+<div class="page-center">
+    <div class="form-card">
+        <h2>Add Driver</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label>License Number</label>
+                <input type="text" name="license" required>
+            </div>
+
+            <div class="form-group">
+                <label>Assign Vehicle</label>
+                <input type="text" name="vehicle" placeholder="EX: XD7867P">
+                <div class="form-hint">Optional — can assign later</div>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                Save Driver
+            </button>
+        </form>
+    </div>
+</div>
