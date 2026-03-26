@@ -4,7 +4,7 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# 🔐 SECURITY
+#  SECURITY
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-insecure-change-this-in-production"
@@ -40,13 +40,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
-    # 🔥 Cloudinary
+    #  Cloudinary
     'cloudinary',
     'cloudinary_storage',
 ]
 
 
-# 🔥 CLOUDINARY (VERY IMPORTANT)
+# CLOUDINARY (VERY IMPORTANT)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
