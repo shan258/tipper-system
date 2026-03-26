@@ -10,7 +10,7 @@ from accounts.models import DriverProfile
 from django.contrib import messages
 from datetime import datetime
 from django.urls import reverse
-from .utils import notify_admin
+
 
 @login_required
 @user_passes_test(lambda u: not u.is_staff)
@@ -35,11 +35,7 @@ def add_fuel(request):
             meter_reading=request.POST.get("meter_reading"),
             bill_image=request.FILES.get("bill_image"),
         )
-        notify_admin(
-            notify_admin(message="Fuel added", link="/fuel/")
-        )
-
-
+       
         messages.success(request, "Fuel entry added successfully")
         return redirect("driver_dashboard")
 
@@ -172,11 +168,7 @@ def parking_entry(request):
             end_meter_photo=photo,
             date=localdate()
         )
-        notify_admin(
-            message=f"🅿️ Parking entry added by {request.user.username}",
-            link="/parking/admin/"
-        )
-
+    
 
         messages.success(request, "Parking entry saved")
         return redirect("driver_dashboard")
