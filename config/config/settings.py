@@ -30,23 +30,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Local apps
     'accounts',
     'trips',
     'vehicles',
     'fuel',
 
-    # Third-party
     'rest_framework',
     'rest_framework.authtoken',
 
-    #  Cloudinary
+    # ✅ ADD HERE (NOT +=)
     'cloudinary',
     'cloudinary_storage',
 ]
 
-
-# CLOUDINARY (VERY IMPORTANT)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
