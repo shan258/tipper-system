@@ -446,3 +446,7 @@ def mark_notification_read(request, id):
     notification.save()
 
     return redirect(notification.link or "admin_dashboard")
+
+def create_admin():
+    if not User.objects.filter(username="Admin").exists():
+        User.objects.create_superuser("Admin", "admin@pni.com.sg", "Admin@123")

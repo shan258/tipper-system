@@ -36,7 +36,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import redirect
 from django.contrib.auth import views as auth_views
-
+from accounts.views import create_admin
+create_admin()
 
 # Root URL → Login page
 def home_redirect(request):
