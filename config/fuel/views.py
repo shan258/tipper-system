@@ -36,8 +36,7 @@ def add_fuel(request):
             bill_image=request.FILES.get("bill_image"),
         )
         notify_admin(
-            message=f"⛽ Fuel entry added by {request.user.username}",
-            link="/fuel/admin/"
+            notify_admin(message="Fuel added", link="/fuel/")
         )
 
 
