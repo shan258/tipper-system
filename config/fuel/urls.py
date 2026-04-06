@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+app_name = 'fuel'
+
+
 urlpatterns = [
     path("add/", views.add_fuel, name="add-fuel"),
     path("admin/", views.admin_fuel_dashboard, name="admin-fuel-dashboard"),
@@ -10,5 +13,5 @@ urlpatterns = [
 
     path("parking/", views.parking_entry, name="parking-entry"),
     path("parking/delete/<int:pk>/", views.delete_parking, name="delete_parking"),
-    path('download-fuel/', views.download_fuel_excel, name='download_fuel_excel'),
+     path('download-fuel/', views.download_fuel_excel, name='download_fuel_excel'),
 ]
