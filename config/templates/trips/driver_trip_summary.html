@@ -46,9 +46,11 @@
 </head>
 <body>
 
-<a class="back" href="{% url 'driver_dashboard' %}">⬅ Back </a><h2>
-  🚛 My Trip Summary 
-  </h2>
+<a class="back" href="{% url 'driver_dashboard' %}">⬅ Back </a><h2>🚚 My Trip Summary</h2>
+<a href="?start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}">
+    Download Excel
+</a>
+
 <form method="get" style="margin-bottom: 15px;">
     <label>From:</label>
     <input type="date" name="start_date" value="{{ start_date|date:'Y-m-d' }}">
@@ -57,6 +59,7 @@
     <input type="date" name="end_date" value="{{ end_date|date:'Y-m-d' }}">
 
     <button type="submit">Filter</button>
+    <a href="?">Reset</a>
 </form>
 
 {% if trips %}
