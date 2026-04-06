@@ -10,4 +10,5 @@ urlpatterns = [
 
     path("parking/", views.parking_entry, name="parking-entry"),
     path("parking/delete/<int:pk>/", views.delete_parking, name="delete_parking"),
+    path('download-fuel/', views.download_fuel_excel, name='download_fuel_excel'),
 ]

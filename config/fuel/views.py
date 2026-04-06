@@ -10,6 +10,8 @@ from accounts.models import DriverProfile
 from django.contrib import messages
 from datetime import datetime
 from django.urls import reverse
+import openpyxl
+from django.http import HttpResponse
 
 
 @login_required
@@ -43,7 +45,46 @@ def add_fuel(request):
         "vehicle": vehicle
     })
 
+@login_required
+def download_fuel_excel(request):
+    fuel_entries = FuelEntry.objects.select_related("vehicle", "driver").order_by("-date")
 
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Fuel Report"
+
+    headers = [
+        "DATE", "VEHICLE", "DRIVER", 
+        "DIESEL (L)", "AMOUNT", "METER READING"
+    ]
+
+    ws.append(headers)
+
+    total_amount = 0
+
+    for idx, entry in enumerate(fuel_entries, start=1):
+        total_amount += float(entry.amount)
+
+        ws.append([
+            idx,
+            entry.date.strftime("%Y-%m-%d %H:%M"),
+            entry.vehicle.vehicle_number,
+            entry.driver.username,
+            entry.diesel_liters,
+            entry.amount,
+            entry.meter_reading
+        ])
+
+    ws.append([])
+    ws.append(["", "", "", "", "TOTAL", total_amount])
+
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    response["Content-Disposition"] = "attachment; filename=fuel_report.xlsx"
+
+    wb.save(response)
+    return response
 
 @login_required
 def admin_fuel_dashboard(request):
